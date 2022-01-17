@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    {%include 'navbar.html'%}
+    <div id="gradient">
+        <section class="section" style="padding-top: 70px;">
+            <div class='container pt-6'>
+                <div class='content has-text-centered'>
+                    <h1 id="time" style="font-size: 80px;">00:00:00</h1>
+                </div>
+            </div>
+            <div class="center-manual-checkin">
+                    <button class="circle-button" id="gradient_button" onclick="changeInnerHTML()"  >
+                        <div class="content">
+                            <h1 id='message_button'>
+                                Work!!!
+                            </h1>
+                        </div>
+                    </button>
+            </div>
+        </section>
+    </div>
+</body>
+<script src="/static/js/loginpage.js"></script>
+<script>
+    let minute = 0
+    let second = 0
+    let microSecond = 0
+
+    async function changeInnerHTML(){
+        let message = document.getElementById('message_button').innerText
+        console.log(message)
+        if (message === 'Work!!!'){
+            await fetch('/api/checkinStart')
+            interval = setInterval(startTime,100)
+            document.getElementById('message_button').innerText = 'Stop!!!'
+            document.getElementById('gradient_button').style.backgroundImage = 'linear-gradient(to right, #e52d27 0%, #b31217  51%, #e52d27  100%)'
+        }else{
+            await fetch('/api/checkinStop')
+            clearInterval(interval)
+            setZero()
+            document.getElementById('message_button').innerText = 'Work!!!'
+            document.getElementById('gradient_button').style.backgroundImage = 'linear-gradient(to right, #77A1D3 0%, #79CBCA  51%, #77A1D3  100%)'
+        }
+    }
+    function setZero(){
+        minute = 0
+        second = 0
+        microSecond = 0
+    }
+
+    function zerofill(number, length) {
+        // Setup
+        var result = number.toString();
+        var pad = length - result.length;
+    
+        while(pad > 0) {
+            result = '0' + result;
+            pad--;
+        }
+    
+        return result;
+    }
+    function startTime(){
+        minutE = parseInt(minute)
+        seconD = parseInt(second)
+        microSeconD = parseInt(microSecond)
+        
+        microSeconD++
+
+        if (microSeconD > 9){
+            seconD++
+            microSecond = '00'
+        }else{
+            microSecond = zerofill(microSeconD,2)
+        }
+
+        if (seconD > 59){
+            minutE++
+            second = '00'
+        }else{
+            second = zerofill(seconD,2)
+        }
+
+        if (minutE > 9){
+            minute = minutE
+        }else{
+            minute = '0' +minutE
+        }
+
+        document.getElementById('time').innerHTML = minute + ':' + second + ':' + microSecond
+
+    }
+
+    window.onload = () => {
+        fetch('/api/checkTime').then(res => res.json())
+        .then(data => {
+            minute = data.minute
+            second = data.seconds
+            document.getElementById('time').innerHTML = minute + ':' + second + ':' + zerofill(microSecond,2)
+            if (data.seconds > 0 || data.minute > 0){
+                interval = setInterval(startTime,100)
+                document.getElementById('message_button').innerText = 'Stop!!!'
+                document.getElementById('gradient_button').style.backgroundImage = 'linear-gradient(to right, #e52d27 0%, #b31217  51%, #e52d27  100%)'
+            }
+        })
+    }
+    
+</script>
+</html>

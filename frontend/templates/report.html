@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+  {% include "navbar.html" %}
+    <div id='gradient'>
+        <section class="section" style="padding-top: 70px;">
+          <div class="content ">
+            <h1>Work detail</h1>
+          </div>
+          <div class="columns">
+            <div class="column is-one-fifth is-warning is-hovered">
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Start</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                      <input id="startdate" class="input is-rounded" type="date" >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-one-fifth is-warning is-hovered">
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">To</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                      <input id="enddate" class="input is-rounded" type="date" >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content ">
+            <h3>Work minute</h3>
+            <p id="work" class="has-text-grey-darker">0 minute </p>
+            <h3>Ot minute</h3>
+            <p id="ot" class="has-text-grey-darker">0 minute </p>
+            <h3>Amount</h3>
+            <p id="amount" class="has-text-grey-darker">0 Bath </p>
+          </div>
+        </section>
+    </div>
+</body>
+<script src="/static/js/loginpage.js"></script>
+<script src="/static/js/report.js"></script>
+</html>

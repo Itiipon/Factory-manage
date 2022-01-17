@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+  {%include 'navbar.html'%}
+    <div id="gradient">
+      <section class='section' style="padding-top: 70px;">
+        <div class="columns">
+          <div class="column is-four-fifths">
+            <div class="box">
+              <label class="label">Employee id.</label>
+              {{current_user.employee_id}}
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-four-fifths">
+            <div class="box">
+              <label class="label">Name.</label>
+              {{current_user.name}}
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-four-fifths">
+            <div class="box">
+              <label class="label">Tel.</label>
+              {{current_user.phone}}
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-four-fifths">
+            <div class="box">
+              <label class="label">Role</label>
+              {{current_user.role}}
+            </div>
+          </div>
+        </div>
+        <div class="columns">    
+          <a class="button is-danger ml-3 " href="{{url_for('home')}}">Back</a>
+        </div>
+      </section>
+    </div>
+</body>
+<script src="/static/js/loginpage.js"></script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="gradient">
+        <header class="header-login">
+            <div class="content is-normal py-5">
+                <h1>Ittipon Factory</h1>
+            </div>
+        </header>
+        <div class="center-manual container ">
+            <div class="content is-normal">
+                <h1>Login page</h1>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true)%} 
+                {% if messages%} 
+                {% for category,message in messages%} 
+                    <div class="notification is-{{ category }} " style="font-size: 12px;">
+                        <button type="button" class="delete" >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{message}}
+                    </div>
+                {%endfor%} 
+                {%endif%} 
+            {%endwith%} 
+            <form method="POST" action="/api/login">
+
+                <div class="field">
+                    <label class="label">Employee Id.</label>
+                    <div class="control">
+                        <input class="input" name='employee_id' type="text">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Employee password</label>
+                    <div class="control">
+                        <input class="input" name='password' type="password">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <button class="button is-link" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="/static/js/loginpage.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+          const $notification = $delete.parentNode;
+      
+          $delete.addEventListener('click', () => {
+            $notification.parentNode.removeChild($notification);
+          });
+        });
+      });
+</script>
+</html>
